@@ -1,0 +1,15 @@
+sequenceDiagram
+    
+    Note right of Browser: The user types something in the text field and clicking the Save button.
+    Browser->>Server: Send an HTTP POST request to the server address new_note (https://studies.cs.helsinki.fi/exampleapp/new_note)
+    Server-->>Browser: Responds with HTTP status code 302
+    Browser->>Server: HTTP GET to the address defined in the Location header (https://studies.cs.helsinki.fi/exampleapp/notes)
+    Server-->>Browser: HTML-Code
+    Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    Server-->>Browser: main.css
+    Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    Server-->>Browser: main.js
+    Note right of Browser: Browser starts executing js-code that request JSON data from server
+    Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    Server-->>Browser: [{content: "...", date: "..."},...]
+    Note right of Browser: Browser executes the event handler that renders notes to display

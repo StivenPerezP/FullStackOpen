@@ -1,0 +1,6 @@
+sequenceDiagram
+    
+    Note right of Browser: The user types something in the text field and clicking the Save button.
+    Browser->>Server: Send an HTTP POST request to the server address new_note_spa https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    Server-->>Browser: Responds with HTTP status code 201
+    Note right of Browser: Browser processes this response, then update the UI to render note to display
