@@ -1,53 +1,59 @@
-import { useState } from 'react';
-
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing the buttons
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      button press history: {props.allClicks.join(' ')}
-    </div>
+const Header = (props) => {
+  return (    
+  <div>      
+    <h1>{props.course}</h1>    
+  </div>  
   )
 }
 
+const Content = ({ parts }) => {
+  return (
+    <div>
+      {parts.map(part => (
+        <p key={part.name}>
+          {part.name}: {part.exercises} exercises
+        </p>
+      ))}
+    </div>
+  );
+};
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>
-    {text}
-  </button>
-)
+const Total = ({ parts }) => {
+  const totalExercises = parts.reduce((total, part) => total + part.exercises, 0);
+
+  return (
+    <div>
+      <p>Total exercises: {totalExercises}</p>
+    </div>
+  );
+};
+
+
 
 const App = () => {
-  const [left, setLeft] = useState(0)
-  const [right, setRight] = useState(0)
-  const [allClicks, setAll] = useState([])
-
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'))
-    setLeft(left + 1)
-  }
-
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'))
-    setRight(right + 1)
-  }
+  const course = 'Half Stack application development';
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ];
 
   return (
     <div>
-      {left}
-
-      <Button handleClick={handleLeftClick} text='left' />
-      <Button handleClick={handleRightClick} text='right' />
-      {right}
-      <History allClicks={allClicks} />
+      <Header course={course} />
+      <Content parts={parts}/>
+      <Total parts={parts} />
     </div>
-  )
-}
+  );
+};
 
 export default App;
